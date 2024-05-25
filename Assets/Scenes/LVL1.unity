@@ -2542,7 +2542,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 189156743}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GroundChecks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4707,6 +4707,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4380965888045534931, guid: cba6b79e150efca428b8b5a28f32d844, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5006694009180845708, guid: cba6b79e150efca428b8b5a28f32d844, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4750,6 +4754,10 @@ PrefabInstance:
     - target: {fileID: 7188388212523317532, guid: cba6b79e150efca428b8b5a28f32d844, type: 3}
       propertyPath: m_Name
       value: Character
+      objectReference: {fileID: 0}
+    - target: {fileID: 7188388212523317532, guid: cba6b79e150efca428b8b5a28f32d844, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5934,7 +5942,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 413299472}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5950,7 +5958,7 @@ Transform:
   m_GameObject: {fileID: 413299471}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.224, z: 0}
+  m_LocalPosition: {x: 0, y: -0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7439,7 +7447,7 @@ MonoBehaviour:
     FieldOfView: 60
     OrthographicSize: 2
     NearClipPlane: 0.3
-    FarClipPlane: 1000
+    FarClipPlane: 50
     Dutch: 0
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
@@ -7463,7 +7471,7 @@ Transform:
   m_GameObject: {fileID: 515204269}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.68, y: -3.613, z: -10}
+  m_LocalPosition: {x: -7.68, y: -3.613, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13819,7 +13827,7 @@ GameObject:
   - component: {fileID: 860403570}
   - component: {fileID: 860403569}
   - component: {fileID: 860403568}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13839,11 +13847,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  groundedAcceleration: 30
-  airAcceleration: 30
+  groundedAcceleration: 20
+  airAcceleration: 10
   groundDeceleration: 100
-  airDeceleration: 100
+  airDeceleration: 10
   jumpHeight: 1
+  dashForce: 10
+  dashAcceleration: 50
   characterCollider: {fileID: 860403569}
   groundChecks:
   - {fileID: 413299472}
@@ -13907,7 +13917,7 @@ Transform:
   m_GameObject: {fileID: 860403567}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.68, y: -3.613, z: 0}
+  m_LocalPosition: {x: -7.68, y: -3.613, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18328,7 +18338,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 50
   field of view: 60
   orthographic: 1
   orthographic size: 2
@@ -18356,7 +18366,7 @@ Transform:
   m_GameObject: {fileID: 1184687219}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.68, y: -3.613, z: -10}
+  m_LocalPosition: {x: -7.68, y: -3.613, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -27162,7 +27172,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1868417425}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GC_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27178,7 +27188,7 @@ Transform:
   m_GameObject: {fileID: 1868417424}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.089, y: -0.224, z: 0}
+  m_LocalPosition: {x: 0.089, y: -0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -29604,7 +29614,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2056800877}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GC_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29620,7 +29630,7 @@ Transform:
   m_GameObject: {fileID: 2056800876}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.088, y: -0.224, z: 0}
+  m_LocalPosition: {x: -0.088, y: -0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -30230,7 +30240,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2078068441}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player_Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}

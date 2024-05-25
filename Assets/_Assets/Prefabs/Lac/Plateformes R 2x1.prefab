@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5164280397981189358}
   - component: {fileID: 9203454765608709066}
   - component: {fileID: 594514127445779834}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plateformes R 2x1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.01532793, y: -0.0027935505}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -128,7 +128,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.81, y: 5.1}
+  m_Size: {x: 2.3501601, y: 4.513326}
   m_EdgeRadius: 0
 --- !u!1 &7840131003569103750
 GameObject:
@@ -139,7 +139,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9030486571887647286}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plateformes R 2x1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

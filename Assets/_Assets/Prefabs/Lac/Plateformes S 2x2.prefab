@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3304660637762475490}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plateformes S 2x2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 5896752858786563554}
   - component: {fileID: 878715695558716140}
   - component: {fileID: 7892958268963199995}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plateformes S 2x2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,5 +136,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.08, y: 5.54, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 4.5442114, y: 4.920426, z: 0.2}
+  m_Center: {x: 0.09164859, y: -0.026771134, z: 0}
