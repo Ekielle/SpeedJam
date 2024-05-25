@@ -6,7 +6,7 @@ namespace CoolDawn.Player
     {
         public EventHandler StateChanged;
 
-        private PlayerState CurrentState { get; set; } = PlayerState.Idle;
+        private PlayerState CurrentState { get; set; } = PlayerState.None;
 
         public void AddState(PlayerState state)
         {
