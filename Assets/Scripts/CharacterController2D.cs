@@ -44,6 +44,7 @@ namespace CoolDawn
         
         private Vector2 _velocity;
         private float _moveInput;
+        private float _lastMoveInput;
 
         private void FixedUpdate()
         {
@@ -128,7 +129,6 @@ namespace CoolDawn
                 if (hit)
                 {
                     _velocity.y = -1;
-                    Debug.Log("Hit ceiling");
                 }
             }
         }
@@ -148,6 +148,7 @@ namespace CoolDawn
         public void Move(float motion)
         {
             _moveInput = motion;
+            if(_moveInput != 0) _lastMoveInput = motion;
         }
 
         public void Jump()
@@ -168,6 +169,12 @@ namespace CoolDawn
             bool left = direction.x < -0f;
             bool up = direction.y > 0.4f;
             bool down = direction.y < -0.4f;
+
+            if (!right && !left)
+            {
+                right = _lastMoveInput > 0;
+                left = _lastMoveInput < 0;
+            }
 
             Vector2 dashDirection = Vector2.zero;
             if (up)

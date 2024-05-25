@@ -6,12 +6,12 @@ namespace CoolDawn.Player
     public class PlayerController : MonoBehaviour
     {
         private const float MovementSpeed = 1.0f;
-        private const float DashCooldown = 1.0f;
+        private const float GroundDashCooldown = 1.0f;
         [SerializeField] private CharacterController2D characterController;
         [SerializeField] private Transform visual;
         
-        private float _dashCooldownTimer;
-        private int _dashLeft = 1; // TODO Handle player evolution
+        private float _groundDashCooldownTimer;
+        private int _airDashLeft = 1; // TODO Handle player evolution
         private int _jumpLeft = 1; // TODO Handle player evolution
         private Vector2 _velocity;
 
@@ -35,15 +35,10 @@ namespace CoolDawn.Player
 
         private void Update()
         {
-            if (_dashCooldownTimer > 0)
+            if (_groundDashCooldownTimer > 0)
             {
-                float newCooldownTimer = _dashCooldownTimer -= Time.deltaTime;
-                _dashCooldownTimer = Mathf.Max(newCooldownTimer, 0);
-                
-                if (_dashCooldownTimer == 0)
-                {
-                    ResetDash();
-                }
+                float newCooldownTimer = _groundDashCooldownTimer -= Time.deltaTime;
+                _groundDashCooldownTimer = Mathf.Max(newCooldownTimer, 0);
             }
         }
 
@@ -74,9 +69,14 @@ namespace CoolDawn.Player
             }
         }
 
-        private bool CanDash()
+        private bool CanAirDash()
         {
-            return _dashLeft > 0;
+            return _airDashLeft > 0;
+        }
+        
+        private bool CanGroundDash()
+        {
+            return _groundDashCooldownTimer <= 0;
         }
 
         private bool CanJump()
@@ -87,13 +87,7 @@ namespace CoolDawn.Player
         private void ResetCooldowns()
         {
             _jumpLeft = 1; // TODO Handle player evolution
-            _dashCooldownTimer = 0f;
-            ResetDash();
-        }
-
-        private void ResetDash()
-        {
-            _dashLeft = 1; // TODO Handle player evolution
+            _airDashLeft = 1; // TODO Handle player evolution
         }
 
         private void InputManager_OnJump(object sender, EventArgs e)
@@ -108,14 +102,22 @@ namespace CoolDawn.Player
 
         private void InputManager_OnDash(object sender, EventArgs e)
         {
-            if (!CanDash()) return;
+            
+            if (!StateManager.HasState(PlayerState.Grounded) && !CanAirDash()) return;
+            if (StateManager.HasState(PlayerState.Grounded) && !CanGroundDash()) return;
 
             Vector2 dashDirection = InputManager.Instance.GetMovement();
             characterController.Dash(dashDirection);
-            
-            _dashLeft--;
+
+            if (StateManager.HasState(PlayerState.Grounded))
+            {
+                _groundDashCooldownTimer = GroundDashCooldown;
+            }
+            else
+            {
+                _airDashLeft--;
+            }
             StateManager.AddState(PlayerState.Dashing);
-            if (StateManager.HasState(PlayerState.Grounded)) _dashCooldownTimer = DashCooldown;
         }
 
         private void InputManager_OnCrouch(object sender, EventArgs e)
