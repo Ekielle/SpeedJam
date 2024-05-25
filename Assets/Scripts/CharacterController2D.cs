@@ -7,7 +7,6 @@ namespace CoolDawn
     [RequireComponent(typeof(Collider2D))]
     public class CharacterController2D : MonoBehaviour
     {
-        public bool IsGrounded { get; private set; }
         public EventHandler<bool> GroundStateChanged;
 
         [SerializeField, Tooltip("Max speed, in units per second, that the character moves.")]
@@ -42,6 +41,7 @@ namespace CoolDawn
         [SerializeField, Tooltip("Position from where we're checking if the character touched the ceiling.")]
         private Transform[] ceilingChecks;
         
+        private bool _isGrounded;
         private Vector2 _velocity;
         private float _moveInput;
         private float _lastMoveInput;
@@ -52,8 +52,8 @@ namespace CoolDawn
             CheckCeiling();
             ApplyGravity();
 
-            float acceleration = IsGrounded ? groundedAcceleration : airAcceleration;
-            float deceleration = IsGrounded ? groundDeceleration : airDeceleration;
+            float acceleration = _isGrounded ? groundedAcceleration : airAcceleration;
+            float deceleration = _isGrounded ? groundDeceleration : airDeceleration;
 
             if (_moveInput != 0)
             {
@@ -107,17 +107,17 @@ namespace CoolDawn
                 }
             }
 
-            if (!IsGrounded && grounded)
+            if (!_isGrounded && grounded)
             {
                 GroundStateChanged?.Invoke(this, true);
             }
 
-            if (IsGrounded && !grounded)
+            if (_isGrounded && !grounded)
             {
                 GroundStateChanged?.Invoke(this, false);
             }
 
-            IsGrounded = grounded;
+            _isGrounded = grounded;
         }
         
         private void CheckCeiling()
@@ -135,7 +135,7 @@ namespace CoolDawn
 
         private void ApplyGravity()
         {
-            if (IsGrounded)
+            if (_isGrounded)
             {
                 _velocity.y = Mathf.Max(0, _velocity.y);
             }
@@ -158,12 +158,12 @@ namespace CoolDawn
 
         public void Dash(Vector2 direction)
         {
-            Vector2 dashUpRight = new Vector2(0.5f, 0.5f);
-            Vector2 dashUpLeft = new Vector2(-0.5f, 0.5f);
-            Vector2 dashLeft = new Vector2(-1, 0);
-            Vector2 dashRight = new Vector2(1, 0);
-            Vector2 dashDownRight = new Vector2(0.5f, -0.5f);
-            Vector2 dashDownLeft = new Vector2(-0.5f, -0.5f);
+            Vector2 dashUpRight = new(0.5f, 0.5f);
+            Vector2 dashUpLeft = new(-0.5f, 0.5f);
+            Vector2 dashLeft = new(-1, 0);
+            Vector2 dashRight = new(1, 0);
+            Vector2 dashDownRight = new(0.5f, -0.5f);
+            Vector2 dashDownLeft = new(-0.5f, -0.5f);
 
             bool right = direction.x > 0f;
             bool left = direction.x < -0f;
