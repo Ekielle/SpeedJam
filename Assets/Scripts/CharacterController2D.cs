@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CoolDawn
 {
@@ -9,35 +10,43 @@ namespace CoolDawn
         public bool IsGrounded { get; private set; }
         
         [SerializeField, Tooltip("Max speed, in units per second, that the character moves.")]
-        float speed = 9;
+        private float speed = 5;
 
         [SerializeField, Tooltip("Acceleration while grounded.")]
-        float walkAcceleration = 75;
+        private float groundedAcceleration = 30;
 
         [SerializeField, Tooltip("Acceleration while in the air.")]
-        float airAcceleration = 30;
+        private float airAcceleration = 30;
 
         [SerializeField, Tooltip("Deceleration applied when character is grounded and not attempting to move.")]
-        float groundDeceleration = 70;
+        private float groundDeceleration = 100;
 
+        [SerializeField, Tooltip("Deceleration applied when character is in the air and not attempting to move.")]
+        float airDeceleration = 100;
+        
         [SerializeField, Tooltip("Max height the character will jump regardless of gravity")]
         float jumpHeight = 4;
 
-        private Collider2D _collider;
+        [SerializeField]
+        private Collider2D characterCollider;
 
+        [SerializeField, Tooltip("Position from where we're checking if the character is grounded.")]
+        private Transform[] groundChecks;
+        
         private Vector2 _velocity;
         private float _moveInput;
         
         private void Awake()
         {
-            _collider = GetComponent<Collider2D>();
+            characterCollider.enabled = false;
         }
 
         private void FixedUpdate()
         {
+            CheckGrounded();
             ApplyGravity();
 
-            float acceleration = IsGrounded ? walkAcceleration : airAcceleration;
+            float acceleration = IsGrounded ? groundedAcceleration : airAcceleration;
             float deceleration = IsGrounded ? groundDeceleration : 0;
 
             if (_moveInput != 0)
@@ -52,46 +61,50 @@ namespace CoolDawn
 
             transform.Translate(_velocity * Time.fixedDeltaTime);
 
-            IsGrounded = false;
-
             // Retrieve all colliders we have intersected after velocity has been applied.
             var hits = new List<Collider2D>();
-            Physics2D.OverlapCollider(_collider, new ContactFilter2D(), hits);
+            Physics2D.OverlapCollider(characterCollider, new ContactFilter2D(), hits);
 
             foreach (Collider2D hit in hits)
             {
                 // Ignore our own collider.
-                if (hit == _collider)
+                if (hit == characterCollider)
                     continue;
 
-                ColliderDistance2D colliderDistance = hit.Distance(_collider);
+                ColliderDistance2D colliderDistance = hit.Distance(characterCollider);
 
                 // Ensure that we are still overlapping this collider.
                 // The overlap may no longer exist due to another intersected collider
                 // pushing us out of this one.
                 if (colliderDistance.isOverlapped)
                 {
-                    bool grounded = false;
-                    // If we intersect an object beneath us, set grounded to true. 
-                    if (Vector2.Angle(colliderDistance.normal, Vector2.up) < 90 && _velocity.y < 0)
-                    {
-                        grounded = true;
-                    }
-                    else
-                    {
-                        transform.Translate(colliderDistance.pointA - colliderDistance.pointB);
-                    }
-                    IsGrounded |= grounded;
+                    transform.Translate(colliderDistance.pointA - colliderDistance.pointB);
                 }
             }
             _moveInput = 0f;
+        }
+
+        private void CheckGrounded()
+        {
+            bool grounded = false;
+            
+            foreach(Transform groundCheck in groundChecks)
+            {
+                RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, 0.05f);
+                if (hit)
+                {
+                    grounded = true;
+                }
+            }
+            
+            IsGrounded = grounded;
         }
         
         private void ApplyGravity()
         {
             if (IsGrounded)
             {
-                _velocity.y = 0;
+                _velocity.y = Mathf.Max(0, _velocity.y);
             }
             else
             {

@@ -5,9 +5,10 @@ namespace CoolDawn.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        private const float MovementSpeed = 5.0f;
+        private const float MovementSpeed = 1.0f;
         private const float DashCooldown = 1.0f;
         [SerializeField] private CharacterController2D characterController;
+        [SerializeField] private Transform visual;
         
         private float _dashCooldownTimer;
         private int _dashLeft = 1; // TODO Handle player evolution
@@ -56,6 +57,15 @@ namespace CoolDawn.Player
         {
             float movementInput = InputManager.Instance.GetMovementH();
             characterController.Move(movementInput * MovementSpeed);
+            
+            if(movementInput > 0)
+            {
+                visual.localScale = Vector3.one;
+            }
+            else if(movementInput < 0)
+            {
+                visual.localScale = new Vector3(-1, 1, 1);
+            }
         }
 
         private bool CanDash()
@@ -84,6 +94,7 @@ namespace CoolDawn.Player
         {
             if (!CanJump()) return;
             characterController.Jump();
+            _jumpLeft--;
             StateManager.AddState(PlayerState.Jumping);
         }
 
