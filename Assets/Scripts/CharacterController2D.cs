@@ -153,19 +153,9 @@ namespace CoolDawn
             _velocity.y = Mathf.Sqrt(2 * jumpHeight * Mathf.Abs(Physics2D.gravity.y));
         }
 
-        public void Dash(Vector2 direction)
+        public void Dash(float direction)
         {
-            bool right = direction.x > 0f;
-            bool left = direction.x < -0f;
-            
-            if (!right && !left)
-            {
-                right = _lastMoveInput > 0;
-                left = _lastMoveInput < 0;
-            }
-
-            Vector2 dashDirection = Vector2.zero;
-            
+            Vector2 dashDirection = direction is 0f ? new Vector2(_lastMoveInput, 0).normalized : new Vector2(direction, 0).normalized;
 
             _velocity = dashDirection * dashForce;
         }

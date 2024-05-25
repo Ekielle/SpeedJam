@@ -40,6 +40,11 @@ namespace CoolDawn.Player
                 float newCooldownTimer = _groundDashCooldownTimer -= Time.deltaTime;
                 _groundDashCooldownTimer = Mathf.Max(newCooldownTimer, 0);
             }
+            
+            if (StateManager.HasState(PlayerState.Grounded))
+            {
+                ResetAirCooldowns();
+            }
         }
 
         private void FixedUpdate()
@@ -84,7 +89,7 @@ namespace CoolDawn.Player
             return _jumpLeft > 0;
         }
 
-        private void ResetCooldowns()
+        private void ResetAirCooldowns()
         {
             _jumpLeft = 1; // TODO Handle player evolution
             _airDashLeft = 1; // TODO Handle player evolution
@@ -106,8 +111,7 @@ namespace CoolDawn.Player
             if (!StateManager.HasState(PlayerState.Grounded) && !CanAirDash()) return;
             if (StateManager.HasState(PlayerState.Grounded) && !CanGroundDash()) return;
 
-            Vector2 dashDirection = InputManager.Instance.GetMovement();
-            characterController.Dash(dashDirection);
+            characterController.Dash(InputManager.Instance.GetMovementH());
 
             if (StateManager.HasState(PlayerState.Grounded))
             {
@@ -145,7 +149,6 @@ namespace CoolDawn.Player
             if (isGrounded)
             {
                 StateManager.AddState(PlayerState.Grounded);
-                ResetCooldowns();
             }
             else
             {
