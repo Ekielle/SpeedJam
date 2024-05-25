@@ -29,10 +29,7 @@ namespace CoolDawn
 
         [SerializeField, Tooltip("Force applied to the character when dashing.")]
         float dashForce = 5;
-
-        [SerializeField, Tooltip("Acceleration applied to the character when dashing.")]
-        float dashAcceleration = 30;
-
+        
         [SerializeField] private Collider2D characterCollider;
 
         [SerializeField, Tooltip("Position from where we're checking if the character is grounded.")]
