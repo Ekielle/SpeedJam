@@ -7,9 +7,7 @@ namespace CoolDawn.Player
     {
         private const float MovementSpeed = 5.0f;
         private const float DashCooldown = 1.0f;
-        [SerializeField] private Transform feetPosition;
-        //TODO Replace with a custom CharacterController, see https://roystan.net/articles/character-controller-2d/#:~:text=Character%20controllers%20are%20responsible%20for,with%20a%202D%20character%20controller.
-        [SerializeField] private CharacterController characterController;
+        [SerializeField] private CharacterController2D characterController;
         
         private float _dashCooldownTimer;
         private int _dashLeft = 1; // TODO Handle player evolution
@@ -44,7 +42,6 @@ namespace CoolDawn.Player
 
         private void FixedUpdate()
         {
-            CheckGroundState();
             Move();
         }
         private void OnDestroy()
@@ -57,24 +54,8 @@ namespace CoolDawn.Player
 
         private void Move()
         {
-            ApplyGravity();
             float movementInput = InputManager.Instance.GetMovementH();
-            characterController.Move(_velocity * Time.deltaTime);
-            characterController.Move(new Vector2(movementInput * MovementSpeed, 0) * Time.deltaTime); // TODO Player can move accross coliders, should be prevented by the CharacterController
-        }
-        
-        private void ApplyGravity()
-        {
-            if (StateManager.HasState(PlayerState.Grounded))
-            {
-                _velocity.y = 0;
-            }
-            else
-            {
-                _velocity.y += Physics.gravity.y * Time.deltaTime; // TODO Handle custom gravity (use biome gravity)
-            }
-            
-            characterController.Move(_velocity * Time.deltaTime);
+            characterController.Move(movementInput * MovementSpeed);
         }
 
         private bool CanDash()
@@ -85,24 +66,6 @@ namespace CoolDawn.Player
         private bool CanJump()
         {
             return _jumpLeft > 0;
-        }
-
-        private void CheckGroundState()
-        {
-            const float castRadius = 0.5f;
-            const float castDistance = 0f;
-            
-            if (characterController.isGrounded || Physics2D.CircleCast(feetPosition.position, castRadius, Vector2.down, castDistance))
-            {
-                if (StateManager.HasState(PlayerState.Grounded)) return;
-                StateManager.AddState(PlayerState.Grounded);
-                ResetCooldowns();
-            }
-            else
-            {
-                Debug.Log("Not grounded");
-                StateManager.RemoveState(PlayerState.Grounded);
-            }
         }
 
         private void ResetCooldowns()
