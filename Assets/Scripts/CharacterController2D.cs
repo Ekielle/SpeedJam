@@ -155,18 +155,9 @@ namespace CoolDawn
 
         public void Dash(Vector2 direction)
         {
-            Vector2 dashUpRight = new(0.5f, 0.5f);
-            Vector2 dashUpLeft = new(-0.5f, 0.5f);
-            Vector2 dashLeft = new(-1, 0);
-            Vector2 dashRight = new(1, 0);
-            Vector2 dashDownRight = new(0.5f, -0.5f);
-            Vector2 dashDownLeft = new(-0.5f, -0.5f);
-
             bool right = direction.x > 0f;
             bool left = direction.x < -0f;
-            bool up = direction.y > 0.4f;
-            bool down = direction.y < -0.4f;
-
+            
             if (!right && !left)
             {
                 right = _lastMoveInput > 0;
@@ -174,39 +165,7 @@ namespace CoolDawn
             }
 
             Vector2 dashDirection = Vector2.zero;
-            if (up)
-            {
-                if (right)
-                {
-                    dashDirection = dashUpRight;
-                }
-                else if (left)
-                {
-                    dashDirection = dashUpLeft;
-                }
-            }
-            else if (down)
-            {
-                if (right)
-                {
-                    dashDirection = dashDownRight;
-                }
-                else if (left)
-                {
-                    dashDirection = dashDownLeft;
-                }
-            }
-            else
-            {
-                if (right)
-                {
-                    dashDirection = dashRight;
-                }
-                else if (left)
-                {
-                    dashDirection = dashLeft;
-                }
-            }
+            
 
             _velocity = dashDirection * dashForce;
         }
