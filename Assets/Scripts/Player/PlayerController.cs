@@ -30,6 +30,7 @@ namespace CoolDawn.Player
             InputManager.Instance.StopCrouch += InputManager_OnStopCrouch;
             InputManager.Instance.Walk += InputManager_OnWalk;
             InputManager.Instance.StopWalk += InputManager_OnStopWalk;
+            characterController.GroundStateChanged += CharacterController_OnGrounded;
         }
 
         private void Update()
@@ -38,6 +39,11 @@ namespace CoolDawn.Player
             {
                 float newCooldownTimer = _dashCooldownTimer -= Time.deltaTime;
                 _dashCooldownTimer = Mathf.Max(newCooldownTimer, 0);
+                
+                if (_dashCooldownTimer == 0)
+                {
+                    ResetDash();
+                }
             }
         }
 
@@ -93,7 +99,9 @@ namespace CoolDawn.Player
         private void InputManager_OnJump(object sender, EventArgs e)
         {
             if (!CanJump()) return;
+            
             characterController.Jump();
+            
             _jumpLeft--;
             StateManager.AddState(PlayerState.Jumping);
         }
@@ -101,9 +109,14 @@ namespace CoolDawn.Player
         private void InputManager_OnDash(object sender, EventArgs e)
         {
             if (!CanDash()) return;
-            StateManager.AddState(PlayerState.Dashing);
+
+            Vector2 dashDirection = InputManager.Instance.GetMovement();
+            characterController.Dash(dashDirection);
+            
             _dashLeft--;
+            StateManager.AddState(PlayerState.Dashing);
             if (StateManager.HasState(PlayerState.Grounded)) _dashCooldownTimer = DashCooldown;
+            if (StateManager.HasState(PlayerState.Grounded)) Debug.Log("COOLDOWN");
         }
 
         private void InputManager_OnCrouch(object sender, EventArgs e)
@@ -124,6 +137,19 @@ namespace CoolDawn.Player
         private void InputManager_OnStopWalk(object sender, EventArgs e)
         {
             StateManager.RemoveState(PlayerState.Walking);
+        }
+        
+        private void CharacterController_OnGrounded(object sender, bool isGrounded)
+        {
+            if (isGrounded)
+            {
+                StateManager.AddState(PlayerState.Grounded);
+                ResetCooldowns();
+            }
+            else
+            {
+                StateManager.RemoveState(PlayerState.Grounded);
+            }
         }
     }
 }

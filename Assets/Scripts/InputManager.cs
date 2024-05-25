@@ -52,6 +52,11 @@ namespace CoolDawn
             return _inputActions.Player.Move.ReadValue<Vector2>().x;
         }
 
+        public Vector2 GetMovement()
+        {
+            return _inputActions.Player.Move.ReadValue<Vector2>();
+        }
+
         private void Jump_OnPerformed(InputAction.CallbackContext ctx)
         {
             Jump?.Invoke(this, EventArgs.Empty);
