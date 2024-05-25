@@ -19,9 +19,7 @@ namespace CoolDawn.Player
 
         private void PlayerStateManager_OnStateChanged(object sender, EventArgs e)
         {
-            if (playerController.StateManager.HasState(PlayerState.Idle))
-                Debug.Log("Idle");
-            else if (playerController.StateManager.HasState(PlayerState.Walking))
+            if (playerController.StateManager.HasState(PlayerState.Walking))
                 Debug.Log("Walking");
             else if (playerController.StateManager.HasState(PlayerState.Running))
                 Debug.Log("Running");
