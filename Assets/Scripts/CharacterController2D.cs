@@ -39,12 +39,16 @@ namespace CoolDawn
         [SerializeField, Tooltip("Position from where we're checking if the character is grounded.")]
         private Transform[] groundChecks;
 
+        [SerializeField, Tooltip("Position from where we're checking if the character touched the ceiling.")]
+        private Transform[] ceilingChecks;
+        
         private Vector2 _velocity;
         private float _moveInput;
 
         private void FixedUpdate()
         {
             CheckGrounded();
+            CheckCeiling();
             ApplyGravity();
 
             float acceleration = IsGrounded ? groundedAcceleration : airAcceleration;
@@ -113,6 +117,20 @@ namespace CoolDawn
             }
 
             IsGrounded = grounded;
+        }
+        
+        private void CheckCeiling()
+        {
+            foreach (Transform ceilingCheck in ceilingChecks)
+            {
+                LayerMask mask = LayerMask.GetMask("Terrain");
+                RaycastHit2D hit = Physics2D.Raycast(ceilingCheck.position, Vector2.up, 0.05f, mask);
+                if (hit)
+                {
+                    _velocity.y = -1;
+                    Debug.Log("Hit ceiling");
+                }
+            }
         }
 
         private void ApplyGravity()

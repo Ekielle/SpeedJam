@@ -116,7 +116,6 @@ namespace CoolDawn.Player
             _dashLeft--;
             StateManager.AddState(PlayerState.Dashing);
             if (StateManager.HasState(PlayerState.Grounded)) _dashCooldownTimer = DashCooldown;
-            if (StateManager.HasState(PlayerState.Grounded)) Debug.Log("COOLDOWN");
         }
 
         private void InputManager_OnCrouch(object sender, EventArgs e)
