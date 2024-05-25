@@ -82,6 +82,8 @@ namespace CoolDawn.Player
 
         private void InputManager_OnJump(object sender, EventArgs e)
         {
+            if (!CanJump()) return;
+            characterController.Jump();
             StateManager.AddState(PlayerState.Jumping);
         }
 

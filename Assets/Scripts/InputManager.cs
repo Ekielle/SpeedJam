@@ -54,7 +54,6 @@ namespace CoolDawn
 
         private void Jump_OnPerformed(InputAction.CallbackContext ctx)
         {
-            Debug.Log("Jump input detected");
             Jump?.Invoke(this, EventArgs.Empty);
         }
 

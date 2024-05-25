@@ -108,10 +108,5 @@ namespace CoolDawn
         {
             _velocity.y = Mathf.Sqrt(2 * jumpHeight * Mathf.Abs(Physics2D.gravity.y));
         }
-
-        /// <summary>
-        /// Set to true when the character intersects a collider beneath
-        /// them in the previous frame.
-        /// </summary>
     }
 }

@@ -5120,11 +5120,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f97ecbd28c4dd48b5aab952efed3f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 9
-  walkAcceleration: 75
+  speed: 5
+  walkAcceleration: 30
   airAcceleration: 30
-  groundDeceleration: 70
-  jumpHeight: 4
+  groundDeceleration: 100
+  jumpHeight: 1
 --- !u!70 &860403569
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
