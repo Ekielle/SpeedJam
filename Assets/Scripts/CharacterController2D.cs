@@ -278,6 +278,7 @@ namespace CoolDawn
         public void Teleport(Vector2 position)
         {
             transform.position = position;
+            _velocity = Vector2.zero;
         }
     }
 }
