@@ -249,7 +249,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""16aa08f6-dbf7-47bd-853f-0863a6fdc9eb"",
-                    ""path"": ""<Keyboard>/delete"",
+                    ""path"": ""<Keyboard>/backspace"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

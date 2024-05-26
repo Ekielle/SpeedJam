@@ -18,15 +18,19 @@ namespace CoolDawn
         
         private void Trigger_Triggered(object sender, System.EventArgs e)
         {
-            if (active) return;
-            Activate();
             CheckpointManager.Instance.SetCurrentCheckpoint(this);
         }
         
-        private void Activate()
+        public void Activate()
         {
             activeVisual.gameObject.SetActive(true);
             inactiveVisual.gameObject.SetActive(false);
+        }
+        
+        public void Deactivate()
+        {
+            activeVisual.gameObject.SetActive(false);
+            inactiveVisual.gameObject.SetActive(true);
         }
     }
 }

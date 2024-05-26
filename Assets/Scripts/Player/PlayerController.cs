@@ -183,7 +183,7 @@ namespace CoolDawn.Player
             Respawn();
         }
 
-        private void Respawn()
+        public void Respawn()
         {
             Vector2 target = CheckpointManager.Instance.GetCurrentCheckpointPosition();
             characterController.Teleport(target);

@@ -18,7 +18,9 @@ namespace CoolDawn
 
         public void SetCurrentCheckpoint(CheckPoint checkPoint)
         {
+            _currentCheckpoint.Deactivate();
             _currentCheckpoint = checkPoint;
+            _currentCheckpoint.Activate();
         }
         
         public Vector2 GetCurrentCheckpointPosition()
