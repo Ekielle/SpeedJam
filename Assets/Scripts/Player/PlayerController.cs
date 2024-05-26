@@ -33,6 +33,7 @@ namespace CoolDawn.Player
             InputManager.Instance.StopCrouch += InputManager_OnStopCrouch;
             InputManager.Instance.Walk += InputManager_OnWalk;
             InputManager.Instance.StopWalk += InputManager_OnStopWalk;
+            InputManager.Instance.Reload += InputManager_Respawn;
             characterController.GroundStateChanged += CharacterController_OnGrounded;
             characterController.GrabWallStateChanged += CharacterController_OnWallGrabbed;
         }
@@ -176,6 +177,17 @@ namespace CoolDawn.Player
             {
                 StateManager.RemoveState(PlayerState.WallGrabbing);
             }
+        }
+
+        private void InputManager_Respawn(object sender, EventArgs e)
+        {
+            Respawn();
+        }
+
+        private void Respawn()
+        {
+            Vector2 target = CheckpointManager.Instance.GetCurrentCheckpointPosition();
+            characterController.Teleport(target);
         }
     }
 }

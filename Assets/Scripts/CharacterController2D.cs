@@ -277,5 +277,10 @@ namespace CoolDawn
             characterCollider.enabled = true;
             crouchCollider.enabled = false;
         }
+        
+        public void Teleport(Vector2 position)
+        {
+            transform.position = position;
+        }
     }
 }

@@ -22,5 +22,10 @@ namespace CoolDawn
             if(_currentCheckpoint.Order > checkPoint.Order) return;
             _currentCheckpoint = checkPoint;
         }
+        
+        public Vector2 GetCurrentCheckpointPosition()
+        {
+            return _currentCheckpoint.transform.position;
+        }
     }
 }
