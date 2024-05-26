@@ -8,7 +8,9 @@ public static class Loader
 
     public enum Scene {
         MainMenuScene,
-        SampleScene,
+        LVL1,
+        LVL2,
+        LVL3,
         LoadingScene
     }
     private static Scene targetScene;

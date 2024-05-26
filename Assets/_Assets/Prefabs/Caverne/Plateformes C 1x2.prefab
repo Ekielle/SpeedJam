@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6387235702297427210}
   - component: {fileID: 8115717277552395779}
   - component: {fileID: 3150911110257009687}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plateformes C 1x2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +139,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3663848956915172214}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plateformes C 1x2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
