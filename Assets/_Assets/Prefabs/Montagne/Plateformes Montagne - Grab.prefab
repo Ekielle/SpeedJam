@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5961897543081067149}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plateformes Montagne - Grab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 2559728997759291535}
   - component: {fileID: 8539245591564327624}
   - component: {fileID: 7762875401509154939}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plateformes Montagne - Grab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
