@@ -6,6 +6,7 @@ namespace CoolDawn
     public class FallingPlatform : MonoBehaviour
     {
         public event EventHandler Falling;
+        public event EventHandler StopFalling; 
         
         [SerializeField] private float fallDelay = 2.0f;
         [SerializeField] private float respawnDelay = 5.0f;
@@ -41,6 +42,7 @@ namespace CoolDawn
         
         private void Respawn()
         {
+            StopFalling?.Invoke(this, EventArgs.Empty);
             rb.isKinematic = true;
             platformCollider.enabled = true;
             _isFalling = false;
