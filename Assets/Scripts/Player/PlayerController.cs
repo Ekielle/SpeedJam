@@ -127,11 +127,13 @@ namespace CoolDawn.Player
         private void InputManager_OnCrouch(object sender, EventArgs e)
         {
             StateManager.AddState(PlayerState.Crouching);
+            characterController.Crouch();
         }
         
         private void InputManager_OnStopCrouch(object sender, EventArgs e)
         {
             StateManager.RemoveState(PlayerState.Crouching);
+            characterController.StopCrouch();
         }
 
         private void InputManager_OnWalk(object sender, EventArgs e)

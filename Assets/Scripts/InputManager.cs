@@ -28,7 +28,6 @@ namespace CoolDawn
             _inputActions.Player.Jump.performed += Jump_OnPerformed;
             _inputActions.Player.Dash.performed += Dash_OnPerformed;
             _inputActions.Player.Crouch.performed += Crouch_OnPerformed;
-            _inputActions.Player.Crouch.canceled += Crouch_OnCanceled;
             _inputActions.Player.Pause.performed += Pause_OnPerformed;
             _inputActions.Player.Reload.performed += Restart_OnPerformed;
             _inputActions.Player.Walk.performed += Walk_OnPerformed;
@@ -52,11 +51,6 @@ namespace CoolDawn
             return _inputActions.Player.Move.ReadValue<Vector2>().x;
         }
 
-        public Vector2 GetMovement()
-        {
-            return _inputActions.Player.Move.ReadValue<Vector2>();
-        }
-
         private void Jump_OnPerformed(InputAction.CallbackContext ctx)
         {
             Jump?.Invoke(this, EventArgs.Empty);
@@ -69,12 +63,15 @@ namespace CoolDawn
 
         private void Crouch_OnPerformed(InputAction.CallbackContext ctx)
         {
-            Crouch?.Invoke(this, EventArgs.Empty);
-        }
-        
-        private void Crouch_OnCanceled(InputAction.CallbackContext ctx)
-        {
-            StopCrouch?.Invoke(this, EventArgs.Empty);
+            bool isPressed = ctx.ReadValueAsButton();
+            if (isPressed)
+            {
+                Crouch?.Invoke(this, EventArgs.Empty);
+            }
+            else
+            {
+                StopCrouch?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         private void Pause_OnPerformed(InputAction.CallbackContext ctx)

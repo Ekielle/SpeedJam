@@ -20,6 +20,12 @@ namespace CoolDawn
 
         [SerializeField, Tooltip("Deceleration applied when character is grounded and not attempting to move.")]
         private float groundDeceleration = 70;
+        
+        [SerializeField]
+        private float crouchAcceleration = 3;
+        
+        [SerializeField]
+        private float crouchDeceleration = 10;
 
         [SerializeField, Tooltip("Deceleration applied when character is in the air and not attempting to move.")]
         float airDeceleration = 10;
@@ -31,17 +37,31 @@ namespace CoolDawn
         float dashForce = 5;
         
         [SerializeField] private Collider2D characterCollider;
+        [SerializeField] private Collider2D crouchCollider;
 
         [SerializeField, Tooltip("Position from where we're checking if the character is grounded.")]
         private Transform[] groundChecks;
+        
+        [SerializeField, Tooltip("Position from where we're checking if the character is grounded and crouched.")]
+        private Transform[] crouchGroundChecks;
 
         [SerializeField, Tooltip("Position from where we're checking if the character touched the ceiling.")]
         private Transform[] ceilingChecks;
         
+        [SerializeField]
+        private float crouchHeight = 0.2f;
+        
         private bool _isGrounded;
+        private bool _isCrouched;
         private Vector2 _velocity;
         private float _moveInput;
         private float _lastMoveInput;
+
+        private void Start()
+        {
+            characterCollider.enabled = true;
+            crouchCollider.enabled = false;
+        }
 
         private void FixedUpdate()
         {
@@ -49,8 +69,24 @@ namespace CoolDawn
             CheckCeiling();
             ApplyGravity();
 
-            float acceleration = _isGrounded ? groundedAcceleration : airAcceleration;
-            float deceleration = _isGrounded ? groundDeceleration : airDeceleration;
+            float acceleration;
+            float deceleration;
+            
+            if (_isCrouched)
+            {
+                acceleration = crouchAcceleration;
+                deceleration = crouchDeceleration;
+            }
+            else if (_isGrounded)
+            {
+                acceleration = groundedAcceleration;
+                deceleration = groundDeceleration;
+            }
+            else
+            {
+                acceleration = airAcceleration;
+                deceleration = airDeceleration;
+            }
 
             if (_moveInput != 0)
             {
@@ -66,15 +102,16 @@ namespace CoolDawn
 
             // Retrieve all colliders we have intersected after velocity has been applied.
             var hits = new List<Collider2D>();
-            Physics2D.OverlapCollider(characterCollider, new ContactFilter2D(), hits);
+            Collider2D _collider = _isCrouched ? crouchCollider : characterCollider;
+            Physics2D.OverlapCollider(_collider, new ContactFilter2D(), hits);
 
             foreach (Collider2D hit in hits)
             {
                 // Ignore our own collider.
-                if (hit == characterCollider)
+                if (hit == _collider)
                     continue;
 
-                ColliderDistance2D colliderDistance = hit.Distance(characterCollider);
+                ColliderDistance2D colliderDistance = hit.Distance(_collider);
 
                 // Ensure that we are still overlapping this collider.
                 // The overlap may no longer exist due to another intersected collider
@@ -93,8 +130,10 @@ namespace CoolDawn
         private void CheckGrounded()
         {
             bool grounded = false;
-
-            foreach (Transform groundCheck in groundChecks)
+            
+            var checks = _isCrouched ? crouchGroundChecks : groundChecks;
+            
+            foreach (Transform groundCheck in checks)
             {
                 LayerMask mask = LayerMask.GetMask("Terrain");
                 RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, 0.05f, mask);
@@ -158,6 +197,22 @@ namespace CoolDawn
             Vector2 dashDirection = direction is 0f ? new Vector2(_lastMoveInput, 0).normalized : new Vector2(direction, 0).normalized;
 
             _velocity = dashDirection * dashForce;
+        }
+        
+        public void Crouch()
+        {
+            _isCrouched = true;
+            transform.Translate(0, -crouchHeight, 0);
+            characterCollider.enabled = false;
+            crouchCollider.enabled = true;
+        }
+        
+        public void StopCrouch()
+        {
+            _isCrouched = false;
+            transform.Translate(0, crouchHeight, 0);
+            characterCollider.enabled = true;
+            crouchCollider.enabled = false;
         }
     }
 }
