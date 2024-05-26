@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 512379272371708401}
   - component: {fileID: 1125552763080654988}
   - component: {fileID: 8562018160888895982}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Corails de foudre
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,8 +28,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.063, y: 0.1345, z: 0}
-  m_LocalScale: {x: 0.091998555, y: 0.091998555, z: 0.091998555}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1455609429595059748}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -115,7 +115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1455609429595059748}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Corails de foudre
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,5 +136,106 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 512379272371708401}
+  - {fileID: 9016388136093108659}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4120122017549975332
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9016388136093108659}
+  - component: {fileID: 9075102065419374714}
+  m_Layer: 7
+  m_Name: Light 2D
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9016388136093108659
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4120122017549975332}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.062999725, y: 0.13450003, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 1455609429595059748}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9075102065419374714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4120122017549975332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ComponentVersion: 1
+  m_LightType: 1
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.3
+  m_Color: {r: 0.5389552, g: 0, b: 1, a: 1}
+  m_Intensity: 1
+  m_LightVolumeIntensity: 1
+  m_LightVolumeIntensityEnabled: 0
+  m_ApplyToSortingLayers: 00000000
+  m_LightCookieSprite: {fileID: 0}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowIntensityEnabled: 1
+  m_ShadowIntensity: 0.75
+  m_ShadowVolumeIntensityEnabled: 0
+  m_ShadowVolumeIntensity: 0.75
+  m_LocalBounds:
+    m_Center: {x: -0.001249969, y: -0.00049996376, z: 0}
+    m_Extent: {x: 1.18735, y: 1.2055, z: 0}
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 1
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: 0.0976429, y: -0.14000487, z: 0}
+  - {x: 0.11118126, y: -0.06671882, z: 0}
+  - {x: 0.18840408, y: -0.008698463, z: 0}
+  - {x: 0.12819481, y: 0.04125333, z: 0}
+  - {x: 0.075712204, y: -0.033124685, z: 0}
+  - {x: 0.06274414, y: 0.05892849, z: 0}
+  - {x: 0.022474289, y: -0.013212442, z: 0}
+  - {x: -0.010570526, y: 0.09378433, z: 0}
+  - {x: -0.1235466, y: 0.2063117, z: 0}
+  - {x: -0.13936996, y: 0.12539196, z: 0}
+  - {x: -0.17255592, y: 0.19413805, z: 0}
+  - {x: -0.18915176, y: 0.17043233, z: 0}
+  - {x: -0.15912437, y: 0.103266716, z: 0}
+  - {x: -0.090379715, y: 0.085882425, z: 0}
+  - {x: -0.0635128, y: 0.036100864, z: 0}
+  - {x: -0.12119675, y: 0.034520388, z: 0}
+  - {x: -0.18599129, y: 0.00765419, z: 0}
+  - {x: -0.170187, y: -0.012890816, z: 0}
+  - {x: -0.069833755, y: 0.005283594, z: 0}
+  - {x: 0.002105713, y: -0.059276104, z: 0}
+  - {x: -0.019262314, y: -0.19384336, z: 0}
+  - {x: 0.0083293915, y: -0.20607948, z: 0}

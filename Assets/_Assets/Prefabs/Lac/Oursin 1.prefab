@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4842527832787874426}
   - component: {fileID: 5717874492713144120}
   - component: {fileID: 2272361508943848072}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Oursin 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3098272477141771679}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Oursin 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
