@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CoolDawn
 {
@@ -9,8 +10,14 @@ namespace CoolDawn
     {
         public EventHandler<bool> GroundStateChanged;
 
-        [SerializeField, Tooltip("Max speed, in units per second, that the character moves.")]
-        private float speed = 5;
+        [FormerlySerializedAs("speed")] [SerializeField, Tooltip("Max speed, in units per second, that the character moves.")]
+        private float runSpeed = 5;
+        
+        [SerializeField, Tooltip("Max speed, in units per second, that the character moves while crouched.")] 
+        private float crouchSpeed = 2;
+        
+        [SerializeField] private float maxVelocityHorizontal = 10;
+        [SerializeField] private float maxVelocityHorizontalCrouched = 5;
 
         [SerializeField, Tooltip("Acceleration while grounded.")]
         private float groundedAcceleration = 20;
@@ -22,7 +29,7 @@ namespace CoolDawn
         private float groundDeceleration = 70;
         
         [SerializeField]
-        private float crouchAcceleration = 3;
+        private float crouchAcceleration = 1;
         
         [SerializeField]
         private float crouchDeceleration = 10;
@@ -48,6 +55,9 @@ namespace CoolDawn
         [SerializeField, Tooltip("Position from where we're checking if the character touched the ceiling.")]
         private Transform[] ceilingChecks;
         
+        [SerializeField, Tooltip("Position from where we're checking if the character touched a wall.")]
+        private Transform[] wallChecks;
+        
         [SerializeField]
         private float crouchHeight = 0.2f;
         
@@ -67,6 +77,7 @@ namespace CoolDawn
         {
             CheckGrounded();
             CheckCeiling();
+            CheckWallGrab();
             ApplyGravity();
 
             float acceleration;
@@ -90,6 +101,7 @@ namespace CoolDawn
 
             if (_moveInput != 0)
             {
+                float speed = _isCrouched ? crouchSpeed : runSpeed;
                 _velocity.x = Mathf.MoveTowards(_velocity.x, speed * _moveInput, acceleration * Time.fixedDeltaTime);
             }
             else
@@ -165,6 +177,20 @@ namespace CoolDawn
                 if (hit)
                 {
                     _velocity.y = -1;
+                }
+            }
+        }
+
+        private void CheckWallGrab()
+        {
+            foreach (Transform wallCheck in wallChecks)
+            {
+                LayerMask mask = LayerMask.GetMask("Terrain");
+                Vector2 direction = _lastMoveInput > 0 ? Vector2.right : Vector2.left;
+                RaycastHit2D hit = Physics2D.Raycast(wallCheck.position, direction, 0.05f, mask);
+                if (hit)
+                {
+                    
                 }
             }
         }

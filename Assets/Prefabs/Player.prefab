@@ -135,9 +135,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3382460855711334270}
   - component: {fileID: 3210435260440467594}
+  - component: {fileID: 7713913679014159229}
   - component: {fileID: 5301817889357866088}
   - component: {fileID: 3565092324768539722}
-  - component: {fileID: 7713913679014159229}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -179,6 +179,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterController: {fileID: 7713913679014159229}
   visual: {fileID: 5267118829984789374}
+  airJumpEnabled: 0
+  airDashCount: 1
+--- !u!114 &7713913679014159229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3145094942593670275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26f97ecbd28c4dd48b5aab952efed3f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  groundedAcceleration: 20
+  airAcceleration: 10
+  groundDeceleration: 100
+  crouchAcceleration: 3
+  crouchDeceleration: 3
+  airDeceleration: 10
+  jumpHeight: 1
+  dashForce: 10
+  characterCollider: {fileID: 3565092324768539722}
+  crouchCollider: {fileID: 5301817889357866088}
+  groundChecks:
+  - {fileID: 2417652150307205666}
+  - {fileID: 8227059134103046900}
+  - {fileID: 7251383946766577357}
+  crouchGroundChecks:
+  - {fileID: 8101294449340475203}
+  - {fileID: 3125831216004183741}
+  - {fileID: 7128438426494138949}
+  ceilingChecks:
+  - {fileID: 165369176989730131}
+  - {fileID: 6680066406628472025}
+  - {fileID: 4508841279627644598}
+  crouchHeight: 0.1
 --- !u!70 &5301817889357866088
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -249,42 +287,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0.03950879, y: -0.04413593}
   m_Size: {x: 0.3009824, y: 0.3917282}
   m_Direction: 0
---- !u!114 &7713913679014159229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3145094942593670275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26f97ecbd28c4dd48b5aab952efed3f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  groundedAcceleration: 20
-  airAcceleration: 10
-  groundDeceleration: 100
-  crouchAcceleration: 3
-  crouchDeceleration: 3
-  airDeceleration: 10
-  jumpHeight: 1
-  dashForce: 10
-  characterCollider: {fileID: 3565092324768539722}
-  crouchCollider: {fileID: 5301817889357866088}
-  groundChecks:
-  - {fileID: 2417652150307205666}
-  - {fileID: 8227059134103046900}
-  - {fileID: 7251383946766577357}
-  crouchGroundChecks:
-  - {fileID: 8101294449340475203}
-  - {fileID: 3125831216004183741}
-  - {fileID: 7128438426494138949}
-  ceilingChecks:
-  - {fileID: 165369176989730131}
-  - {fileID: 6680066406628472025}
-  - {fileID: 4508841279627644598}
-  crouchHeight: 0.1
 --- !u!1 &4743030969538080461
 GameObject:
   m_ObjectHideFlags: 0

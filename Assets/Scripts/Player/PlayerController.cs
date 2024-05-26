@@ -9,10 +9,14 @@ namespace CoolDawn.Player
         private const float GroundDashCooldown = 1.0f;
         [SerializeField] private CharacterController2D characterController;
         [SerializeField] private Transform visual;
+        [SerializeField] private bool airJumpEnabled = true;
+        [SerializeField] private bool wallJumpEnabled = true;
+        [SerializeField] private bool wallGrabEnabled = true;
+        [SerializeField] private int airDashCount = 1;
         
         private float _groundDashCooldownTimer;
-        private int _airDashLeft = 1; // TODO Handle player evolution
-        private int _jumpLeft = 1; // TODO Handle player evolution
+        private int _airDashLeft;
+        private int _airJumpLeft;
         private Vector2 _velocity;
 
         public PlayerStateManager StateManager { get; private set; }
@@ -84,24 +88,28 @@ namespace CoolDawn.Player
             return _groundDashCooldownTimer <= 0;
         }
 
-        private bool CanJump()
+        private bool CanAirJump()
         {
-            return _jumpLeft > 0;
+            return airJumpEnabled &&  _airJumpLeft > 0;
         }
 
         private void ResetAirCooldowns()
         {
-            _jumpLeft = 1; // TODO Handle player evolution
-            _airDashLeft = 1; // TODO Handle player evolution
+            _airJumpLeft = 1; 
+            _airDashLeft = airDashCount;
         }
 
         private void InputManager_OnJump(object sender, EventArgs e)
         {
-            if (!CanJump()) return;
+            if (!CanAirJump() && !StateManager.HasState(PlayerState.Grounded)) return;
             
             characterController.Jump();
             
-            _jumpLeft--;
+            if(!StateManager.HasState(PlayerState.Grounded))
+            {
+                _airJumpLeft--;
+            }
+            
             StateManager.AddState(PlayerState.Jumping);
         }
 
