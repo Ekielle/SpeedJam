@@ -17,9 +17,6 @@ namespace CoolDawn
         [SerializeField, Tooltip("Max speed, in units per second, that the character moves while crouched.")] 
         private float crouchSpeed = 2;
         
-        [SerializeField] private float maxVelocityHorizontal = 10;
-        [SerializeField] private float maxVelocityHorizontalCrouched = 5;
-
         [SerializeField, Tooltip("Acceleration while grounded.")]
         private float groundedAcceleration = 20;
 

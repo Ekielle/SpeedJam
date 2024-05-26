@@ -10,7 +10,6 @@ namespace CoolDawn.Player
         [SerializeField] private CharacterController2D characterController;
         [SerializeField] private Transform visual;
         [SerializeField] private bool airJumpEnabled = true;
-        [SerializeField] private bool wallJumpEnabled = true;
         [SerializeField] private int airDashCount = 1;
         
         private float _groundDashCooldownTimer;
