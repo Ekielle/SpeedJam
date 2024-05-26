@@ -4,9 +4,6 @@ namespace CoolDawn
 {
     public class CheckPoint : MonoBehaviour
     {
-        public int Order => order;
-        
-        [SerializeField] private int order;
         [SerializeField] private Trigger trigger;
         [SerializeField] private bool active;
         [SerializeField] private Transform activeVisual;

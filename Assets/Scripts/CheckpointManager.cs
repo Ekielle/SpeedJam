@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CoolDawn
 {
@@ -19,7 +18,6 @@ namespace CoolDawn
 
         public void SetCurrentCheckpoint(CheckPoint checkPoint)
         {
-            if(_currentCheckpoint.Order > checkPoint.Order) return;
             _currentCheckpoint = checkPoint;
         }
         
