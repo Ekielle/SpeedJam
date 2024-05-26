@@ -12,6 +12,7 @@ namespace CoolDawn.Player
         Dashing = 1 << 3,
         Crouching = 1 << 4,
         Sliding = 1 << 5,
-        Grounded = 1 << 6
+        Grounded = 1 << 6,
+        WallGrabbing = 1 << 7,
     }
 }

@@ -11,7 +11,6 @@ namespace CoolDawn.Player
         [SerializeField] private Transform visual;
         [SerializeField] private bool airJumpEnabled = true;
         [SerializeField] private bool wallJumpEnabled = true;
-        [SerializeField] private bool wallGrabEnabled = true;
         [SerializeField] private int airDashCount = 1;
         
         private float _groundDashCooldownTimer;
@@ -35,6 +34,7 @@ namespace CoolDawn.Player
             InputManager.Instance.Walk += InputManager_OnWalk;
             InputManager.Instance.StopWalk += InputManager_OnStopWalk;
             characterController.GroundStateChanged += CharacterController_OnGrounded;
+            characterController.GrabWallStateChanged += CharacterController_OnWallGrabbed;
         }
 
         private void Update()
@@ -90,7 +90,7 @@ namespace CoolDawn.Player
 
         private bool CanAirJump()
         {
-            return airJumpEnabled &&  _airJumpLeft > 0;
+            return (airJumpEnabled && _airJumpLeft > 0) || StateManager.HasState(PlayerState.WallGrabbing);
         }
 
         private void ResetAirCooldowns()
@@ -163,6 +163,18 @@ namespace CoolDawn.Player
             else
             {
                 StateManager.RemoveState(PlayerState.Grounded);
+            }
+        }
+        
+        private void CharacterController_OnWallGrabbed(object sender, bool isGrabbingWall)
+        {
+            if (isGrabbingWall)
+            {
+                StateManager.AddState(PlayerState.WallGrabbing);
+            }
+            else
+            {
+                StateManager.RemoveState(PlayerState.WallGrabbing);
             }
         }
     }

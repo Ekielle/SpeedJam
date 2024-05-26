@@ -63,6 +63,37 @@ Transform:
   - {fileID: 1909401186110041110}
   m_Father: {fileID: 3382460855711334270}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1383135706168459969
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7412264224324358535}
+  m_Layer: 3
+  m_Name: WC_03
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7412264224324358535
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383135706168459969}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.193, y: -0.008, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5706900618010533101}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1717695509978653214
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,6 +194,7 @@ Transform:
   - {fileID: 6197155784041466134}
   - {fileID: 3130899754001836185}
   - {fileID: 8599593821154907897}
+  - {fileID: 5706900618010533101}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3210435260440467594
@@ -180,6 +212,8 @@ MonoBehaviour:
   characterController: {fileID: 7713913679014159229}
   visual: {fileID: 5267118829984789374}
   airJumpEnabled: 0
+  wallJumpEnabled: 1
+  wallGrabEnabled: 1
   airDashCount: 1
 --- !u!114 &7713913679014159229
 MonoBehaviour:
@@ -193,7 +227,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f97ecbd28c4dd48b5aab952efed3f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  runSpeed: 5
+  crouchSpeed: 2
+  maxVelocityHorizontal: 10
+  maxVelocityHorizontalCrouched: 5
   groundedAcceleration: 20
   airAcceleration: 10
   groundDeceleration: 100
@@ -216,7 +253,10 @@ MonoBehaviour:
   - {fileID: 165369176989730131}
   - {fileID: 6680066406628472025}
   - {fileID: 4508841279627644598}
+  wallChecks:
+  - {fileID: 7412264224324358535}
   crouchHeight: 0.1
+  GrabCooldown: 0.2
 --- !u!70 &5301817889357866088
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -444,6 +484,38 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6197155784041466134}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7860330226485241157
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5706900618010533101}
+  m_Layer: 3
+  m_Name: WallCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5706900618010533101
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7860330226485241157}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7412264224324358535}
+  m_Father: {fileID: 3382460855711334270}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8347246152643168957
 GameObject:

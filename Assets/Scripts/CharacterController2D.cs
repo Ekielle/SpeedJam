@@ -9,6 +9,7 @@ namespace CoolDawn
     public class CharacterController2D : MonoBehaviour
     {
         public EventHandler<bool> GroundStateChanged;
+        public EventHandler<bool> GrabWallStateChanged;
 
         [FormerlySerializedAs("speed")] [SerializeField, Tooltip("Max speed, in units per second, that the character moves.")]
         private float runSpeed = 5;
@@ -61,11 +62,16 @@ namespace CoolDawn
         [SerializeField]
         private float crouchHeight = 0.2f;
         
+        [SerializeField, Tooltip("Time in seconds until the character can grab a wall again.")]
+        private float GrabCooldown = 0.2f;
+        
         private bool _isGrounded;
         private bool _isCrouched;
+        private bool _isGrabbingWall;
         private Vector2 _velocity;
         private float _moveInput;
         private float _lastMoveInput;
+        private float _delayUntilNextGrab;
 
         private void Start()
         {
@@ -112,6 +118,13 @@ namespace CoolDawn
 
             transform.Translate(_velocity * Time.fixedDeltaTime);
 
+            ResolveCollisionOverlap();
+
+            _moveInput = 0f;
+        }
+        
+        private void ResolveCollisionOverlap()
+        {
             // Retrieve all colliders we have intersected after velocity has been applied.
             var hits = new List<Collider2D>();
             Collider2D _collider = _isCrouched ? crouchCollider : characterCollider;
@@ -135,8 +148,6 @@ namespace CoolDawn
                     transform.Translate(colliderDistance.pointA - colliderDistance.pointB);
                 }
             }
-
-            _moveInput = 0f;
         }
 
         private void CheckGrounded()
@@ -148,6 +159,7 @@ namespace CoolDawn
             foreach (Transform groundCheck in checks)
             {
                 LayerMask mask = LayerMask.GetMask("Terrain");
+                mask |= LayerMask.GetMask("Grabbable");
                 RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, 0.05f, mask);
                 if (hit)
                 {
@@ -173,6 +185,7 @@ namespace CoolDawn
             foreach (Transform ceilingCheck in ceilingChecks)
             {
                 LayerMask mask = LayerMask.GetMask("Terrain");
+                mask |= LayerMask.GetMask("Grabbable");
                 RaycastHit2D hit = Physics2D.Raycast(ceilingCheck.position, Vector2.up, 0.05f, mask);
                 if (hit)
                 {
@@ -183,20 +196,33 @@ namespace CoolDawn
 
         private void CheckWallGrab()
         {
+            if (_delayUntilNextGrab > 0)
+            {
+                _delayUntilNextGrab -= Time.fixedDeltaTime;
+                return;
+            }
+            
+            bool wallGrabbed = false;
             foreach (Transform wallCheck in wallChecks)
             {
-                LayerMask mask = LayerMask.GetMask("Terrain");
+                LayerMask mask = LayerMask.GetMask("Grabbable");
                 Vector2 direction = _lastMoveInput > 0 ? Vector2.right : Vector2.left;
                 RaycastHit2D hit = Physics2D.Raycast(wallCheck.position, direction, 0.05f, mask);
-                if (hit)
-                {
-                    
-                }
+                if (!hit) continue;
+                
+                _velocity = Vector2.zero;
+                wallGrabbed = true;
             }
+
+            if (_isGrabbingWall == wallGrabbed) return;
+
+            _isGrabbingWall = wallGrabbed;
+            GrabWallStateChanged?.Invoke(this, wallGrabbed);
         }
 
         private void ApplyGravity()
         {
+            if (_isGrabbingWall) return;
             if (_isGrounded)
             {
                 _velocity.y = Mathf.Max(0, _velocity.y);
@@ -215,7 +241,18 @@ namespace CoolDawn
 
         public void Jump()
         {
-            _velocity.y = Mathf.Sqrt(2 * jumpHeight * Mathf.Abs(Physics2D.gravity.y));
+            if (_isGrabbingWall)
+            {
+                // Wall jump
+                _velocity.y = Mathf.Sqrt(2 * jumpHeight * Mathf.Abs(Physics2D.gravity.y));
+                _delayUntilNextGrab = GrabCooldown;
+                _isGrabbingWall = false;
+                GrabWallStateChanged?.Invoke(this, false);
+            }
+            else
+            {
+                _velocity.y = Mathf.Sqrt(2 * jumpHeight * Mathf.Abs(Physics2D.gravity.y));
+            }
         }
 
         public void Dash(float direction)
