@@ -137,6 +137,61 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "DArrows [Keyboard]",
+                    "id": "07834d9c-22b3-4124-8d82-f64af06ff432",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "8a86ec3b-bf60-4207-ab46-e59c32a5316a",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "29747d4f-7657-415d-ba1f-44363a55cb20",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "25452df8-5bf5-46f4-9e09-e5505c137621",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "030d0135-6c64-4a84-99b4-b02b87049f53",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "a560dc94-426f-4d01-bd6c-54ac5cc31b53",
                     "path": "<Keyboard>/space",
