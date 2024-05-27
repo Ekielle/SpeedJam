@@ -224,7 +224,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 111015330239403604}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 3373729675558985107}
   - component: {fileID: 656252188403256092}
   - component: {fileID: 6168581526867086134}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Plateformes S 1x3 visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
