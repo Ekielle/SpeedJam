@@ -55,6 +55,9 @@ namespace CoolDawn
         
         [SerializeField, Tooltip("Position from where we're checking if the character touched a wall.")]
         private Transform[] wallChecks;
+
+        [SerializeField]
+        private Transform[] wallChecksL;
         
         [SerializeField]
         private float crouchHeight = 0.2f;
@@ -200,11 +203,14 @@ namespace CoolDawn
             }
             
             bool wallGrabbed = false;
-            foreach (Transform wallCheck in wallChecks)
+            
+            LayerMask mask = LayerMask.GetMask("Grabbable");
+            Vector2 direction = _lastMoveInput > 0 ? Vector2.right : Vector2.left;
+            var checks = _lastMoveInput > 0 ? wallChecks : wallChecksL;
+            
+            foreach (Transform wallCheck in checks)
             {
-                LayerMask mask = LayerMask.GetMask("Grabbable");
-                Vector2 direction = _lastMoveInput > 0 ? Vector2.right : Vector2.left;
-                RaycastHit2D hit = Physics2D.Raycast(wallCheck.position, direction, 0.05f, mask);
+                RaycastHit2D hit = Physics2D.Raycast(wallCheck.position, direction, 0.1f, mask);
                 if (!hit) continue;
                 
                 _velocity = Vector2.zero;
