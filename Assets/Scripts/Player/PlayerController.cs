@@ -8,6 +8,8 @@ namespace CoolDawn.Player
         
         public event EventHandler Dashing;
         public event EventHandler<bool> Crouching;
+
+        public event EventHandler<bool> Grabbing;
         
         private const float MovementSpeed = 1.0f;
         private const float GroundDashCooldown = 1.0f;
@@ -166,10 +168,12 @@ namespace CoolDawn.Player
             if (isGrabbingWall)
             {
                 StateManager.AddState(PlayerState.WallGrabbing);
+                Grabbing?.Invoke(this, true);
             }
             else
             {
                 StateManager.RemoveState(PlayerState.WallGrabbing);
+                Grabbing?.Invoke(this, false);
             }
         }
 
