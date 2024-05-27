@@ -81,7 +81,7 @@ SpriteRenderer:
   m_Size: {x: 0.85, y: 2.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &8255682644791875209
@@ -165,7 +165,7 @@ SpriteRenderer:
   m_Size: {x: 0.85, y: 2.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1001 &6712261720143356637
@@ -178,11 +178,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1365355259216945117, guid: 309bad92792fdc14eb8025bd0a40cae5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.251
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1365355259216945117, guid: 309bad92792fdc14eb8025bd0a40cae5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 24.114956
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1365355259216945117, guid: 309bad92792fdc14eb8025bd0a40cae5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -222,7 +222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8406346316105071922, guid: 309bad92792fdc14eb8025bd0a40cae5, type: 3}
       propertyPath: m_Name
-      value: Player_Visual_LVL2 Variant
+      value: Player_Visual_LVL2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
