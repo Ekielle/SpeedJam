@@ -5,6 +5,10 @@ namespace CoolDawn.Player
 {
     public class PlayerController : MonoBehaviour
     {
+        
+        public event EventHandler Dashing;
+        public event EventHandler<bool> Crouching;
+        
         private const float MovementSpeed = 1.0f;
         private const float GroundDashCooldown = 1.0f;
         [SerializeField] private CharacterController2D characterController;
@@ -18,6 +22,7 @@ namespace CoolDawn.Player
         private Vector2 _velocity;
 
         public PlayerStateManager StateManager { get; private set; }
+        public float LastMoveInput { get; private set; }
 
         private void Awake()
         {
@@ -30,8 +35,6 @@ namespace CoolDawn.Player
             InputManager.Instance.Dash += InputManager_OnDash;
             InputManager.Instance.Crouch += InputManager_OnCrouch;
             InputManager.Instance.StopCrouch += InputManager_OnStopCrouch;
-            InputManager.Instance.Walk += InputManager_OnWalk;
-            InputManager.Instance.StopWalk += InputManager_OnStopWalk;
             InputManager.Instance.Reload += InputManager_Respawn;
             characterController.GroundStateChanged += CharacterController_OnGrounded;
             characterController.GrabWallStateChanged += CharacterController_OnWallGrabbed;
@@ -60,12 +63,12 @@ namespace CoolDawn.Player
             InputManager.Instance.Jump -= InputManager_OnJump;
             InputManager.Instance.Dash -= InputManager_OnDash;
             InputManager.Instance.Crouch -= InputManager_OnCrouch;
-            InputManager.Instance.Walk -= InputManager_OnWalk;
         }
 
         private void Move()
         {
             float movementInput = InputManager.Instance.GetMovementH();
+            LastMoveInput = movementInput;
             characterController.Move(movementInput * MovementSpeed);
             
             if(movementInput > 0)
@@ -129,29 +132,21 @@ namespace CoolDawn.Player
             {
                 _airDashLeft--;
             }
-            StateManager.AddState(PlayerState.Dashing);
+            Dashing?.Invoke(this, EventArgs.Empty);
         }
 
         private void InputManager_OnCrouch(object sender, EventArgs e)
         {
             StateManager.AddState(PlayerState.Crouching);
             characterController.Crouch();
+            Crouching?.Invoke(this, true);
         }
         
         private void InputManager_OnStopCrouch(object sender, EventArgs e)
         {
             StateManager.RemoveState(PlayerState.Crouching);
             characterController.StopCrouch();
-        }
-
-        private void InputManager_OnWalk(object sender, EventArgs e)
-        {
-            StateManager.AddState(PlayerState.Walking);
-        }
-        
-        private void InputManager_OnStopWalk(object sender, EventArgs e)
-        {
-            StateManager.RemoveState(PlayerState.Walking);
+            Crouching?.Invoke(this, false);
         }
         
         private void CharacterController_OnGrounded(object sender, bool isGrounded)

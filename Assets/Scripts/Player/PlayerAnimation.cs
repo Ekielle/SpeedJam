@@ -6,32 +6,30 @@ namespace CoolDawn.Player
     public class PlayerAnimation : MonoBehaviour
     {
         [SerializeField] private PlayerController playerController;
+        [SerializeField] private Animator animator;
+        private static readonly int Dash = Animator.StringToHash("Dash");
+        private static readonly int Speed = Animator.StringToHash("Speed");
+        private static readonly int Crouch = Animator.StringToHash("Crouch");
 
         private void Start()
         {
-            playerController.StateManager.StateChanged += PlayerStateManager_OnStateChanged;
+            playerController.Dashing += Player_Dashing;
+            playerController.Crouching += Player_Crouching;
         }
 
-        private void OnDestroy()
+        private void Update()
         {
-            playerController.StateManager.StateChanged -= PlayerStateManager_OnStateChanged;
+            animator.SetFloat(Speed, Mathf.Abs(playerController.LastMoveInput));
         }
 
-        private void PlayerStateManager_OnStateChanged(object sender, EventArgs e)
+        private void Player_Dashing(object sender, EventArgs e)
         {
-            if (playerController.StateManager.HasState(PlayerState.Walking))
-                Debug.Log("Walking");
-            else if (playerController.StateManager.HasState(PlayerState.Running))
-                Debug.Log("Running");
-            else if (playerController.StateManager.HasState(PlayerState.Jumping))
-                Debug.Log("Jumping");
-            else if (playerController.StateManager.HasState(PlayerState.Dashing))
-                Debug.Log("Dashing");
-            else if (playerController.StateManager.HasState(PlayerState.Crouching))
-                Debug.Log("Crouching");
-            else if (playerController.StateManager.HasState(PlayerState.Sliding))
-                Debug.Log("Sliding");
-            else if (playerController.StateManager.HasState(PlayerState.Grounded)) Debug.Log("Grounded");
+            animator.SetTrigger(Dash);
+        }
+        
+        private void Player_Crouching(object sender, bool isCrouching)
+        {
+            animator.SetBool(Crouch, isCrouching);
         }
     }
 }
